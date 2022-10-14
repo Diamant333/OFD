@@ -1,4 +1,4 @@
-
+from django.views.generic import ListView
 from django.shortcuts import render
 from ofdload.models import Company, Kkt
 import requests
@@ -60,3 +60,7 @@ def kkt_collation(request):
     return render(request, 'ofdload/collation.html', context)
 
 
+class LW(ListView):
+    model = Company
+    template_name = 'ofdload/company.html'
+    context_object_name = 'comp_list'

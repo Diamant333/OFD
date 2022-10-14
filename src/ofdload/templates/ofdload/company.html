@@ -14,7 +14,7 @@
       <th scope="col">Инн</th>
       <th scope="col">Кпп</th>
       <th scope="col">Токен</th>
-      <th scope="col">Загрузить</th>
+      <th scope="col">Управление</th>
     </tr>
     </thead>
     <tbody>
@@ -25,7 +25,13 @@
       <td>{{company.inn}}</td>
       <td>{{company.kpp}}</td>
       <td>{{company.token_key}}</td>
-      <td><button type="button" class="btn btn-success"><a href="{% url 'ofdload:get_data_kkts' pk=company.id %}" style="color: white" class="bi bi-arrow-down-circle"></a></button></td>
+      <td>
+        <a href="{% url 'ofdload:get_data_kkts' pk=company.id %}" role="button" class="btn btn-outline-success bi bi-arrow-down-circle" title="Загрузить данные"></a>
+        <a href="{% url 'ofdload:get_data_kkts' pk=company.id %}" role="button" class="btn btn-outline-info bi bi-info" title="Посмотреть информацию"></a>
+        <a href="{% url 'ofdload:get_data_kkts' pk=company.id %}" role="button" class="btn btn-outline-warning bi bi-pencil-fill" title="Редактировать"></a>
+    
+    </td>
+     
     </tr>
     {% endfor %}
   </tbody>

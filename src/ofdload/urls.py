@@ -9,6 +9,8 @@ urlpatterns = [
     path('company/<int:pk>/', get_data_kkts, name='get_data_kkts'),
     path('info', kkt_info, name='kkt_info'),
     path('collation', kkt_collation, name='collation'),
+    path('com_view', LW.as_view(), name='comview'),
+
 
     #path('detail/<int:pk>/', CityDetailView.as_view(), name='detail'),
 ]
