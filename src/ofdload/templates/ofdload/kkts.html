@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Список касс{% endblock %}
+{% block content %}
+<h3>Кассы</h3>
+
+<div class="container">
+    {% for company in comp_list %}
+    <p>{{company.name}}</p>
+    <p>{{company.inn}}</p>
+    <p>{{company.token_key}}</p>
+
+    {% endfor %}
+<div class="row">
+        {% for object in object_list %}
+            {% if object.kktCheckState == 'Success' %}
+            <p style="color: green">{{object.retailAddress}} Ок</p>
+            {% else %}
+            <p style="color: red">{{object.retailAddress}} Ок</p>
+            {% endif %}
+        {% endfor %}
+</div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Список касс{% endblock %}
+{% block content %}
+
+
+<div class="container">
+  <h4>Информация о ККТ</h4>
+   <div class="row">
+       <div class="accordion" id="accordionExample">
+          {% for company in company_list %}
+          <div class="accordion-item">
+              {% load accordeon %}
+              {% convert company.id as action %}
+            <h2 class="accordion-header" id="heading{{action}}">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{action}}" aria-expanded="false" aria-controls="collapse{{action}}">
+                {{company.name}}
+              </button>
+            </h2>
+
+
+            <div id="collapse{{action}}" class="accordion-collapse collapse" aria-labelledby="heading{{action}}" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+
+                <table class="table table-striped">
+                      <thead>
+                  <tr>
+                    <th scope="col">Наименование</th>
+                    <th scope="col">Адрес</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">Рег.номер</th>
+                    <th scope="col">Дата ФН</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for kkt in kkt_list %}
+                  {% if kkt.company_id_id == company.id %}
+                  <tr {% if kkt.status == 'Success' %}class="table-success"{% else %}class="table-danger"{% endif %}>
+                    <td>{{kkt.name}}</td>
+                    <td>{{kkt.address}}</td>
+                    <td>{{kkt.status}}</td>
+                    <td>{{kkt.reg_number}}</td>
+                    <td>{{kkt.date_fn}}</td>
+                  </tr>
+                  {% endif %}
+                  {% endfor %}
+                </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+      </div>
+   </div>
+</div>
+{% endblock %}
+
