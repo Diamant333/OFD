@@ -49,3 +49,33 @@ class Kkt (models.Model):
         verbose_name_plural = 'ККТ'
         ordering = ['name']
 
+class receipts (models.Model):
+    bsoCode = models.DecimalField(max_digits=10, decimal_places=0, verbose_name='Код документа БСО')
+    rgId = models.DecimalField(max_digits=10, decimal_places=0, verbose_name='Id чека')
+    fiscalSign = models.DecimalField(max_digits=10, decimal_places=0, verbose_name='Фискальный признак документа')
+    receiptDate = models.DateTimeField(verbose_name='Дата/время чека по ККТ')
+    receiptCode = models.DecimalField(max_digits=10, decimal_places=0, verbose_name='Код формы ФД')
+    totalSum = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма чека')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Чек'
+        verbose_name_plural = 'Чеки'
+        ordering = ['fiscalSign']
+
+
+class receipts_office (models.Model):
+    fiscalSign = models.DecimalField(max_digits=10, decimal_places=0, verbose_name='Фискальный признак документа')
+    receiptDate = models.DateTimeField(verbose_name='Дата/время чека по ККТ')
+    receiptCode = models.DecimalField(max_digits=10, decimal_places=0, verbose_name='Код формы ФД')
+    totalSum = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма чека')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Чек офиса'
+        verbose_name_plural = 'Чеки офиса'
+        ordering = ['fiscalSign']
