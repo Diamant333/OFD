@@ -5,6 +5,34 @@ import requests
 import json
 import datetime
 
+class GetOfdInfo(object):
+    def kkts(company):
+        token_key = company['token_key']
+        headers = {
+            'Token': token_key,
+            'Host': 'ofv-api-v0-1-1.evotor.ru',
+            'Accept': 'application/json',
+            'Accept-Charset': 'utf-8',
+        }
+        response = requests.get('https://ofv-api-v0-1-1.evotor.ru/v1/client/kkts', headers=headers)
+        data = response.json()
+        encode_data = json.dumps(data)
+        decode_data = json.loads(encode_data)
+        company = decode_data['kktList']
+        shops = company['orgBranches']
+        kkts = shops[0]['kkts']
+        for kkt in kkts:
+            if not kkt['kktRegNumber'] and kkt['kktCheckState'] == 'Success':
+                obj, created = Kkt.objects.update_or_create(
+                    name=kkt['kktName'],
+                    status=kkt['kktCheckState'],
+                    reg_number=kkt['kktRegNumber'],
+                    address=kkt['retailAddress'],
+                    date_fn=kkt['kktFnInstallDate'],
+                    company_id_id=company['id']
+                )
+    def receipts(kkt):
+        f
 
 def get_company_list(request):
     company_filter = Company.objects.all()
