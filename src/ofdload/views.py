@@ -5,6 +5,7 @@ import requests
 import json
 import datetime
 
+
 class GetOfdInfo(object):
     def kkts(company):
         token_key = company['token_key']
@@ -14,7 +15,8 @@ class GetOfdInfo(object):
             'Accept': 'application/json',
             'Accept-Charset': 'utf-8',
         }
-        response = requests.get('https://ofv-api-v0-1-1.evotor.ru/v1/client/kkts', headers=headers)
+        response = requests.get(
+            'https://ofv-api-v0-1-1.evotor.ru/v1/client/kkts', headers=headers)
         data = response.json()
         encode_data = json.dumps(data)
         decode_data = json.loads(encode_data)
@@ -31,8 +33,10 @@ class GetOfdInfo(object):
                     date_fn=kkt['kktFnInstallDate'],
                     company_id_id=company['id']
                 )
+
     def receipts(kkt):
         f
+
 
 def get_company_list(request):
     company_filter = Company.objects.all()
@@ -51,7 +55,8 @@ def get_data_kkts(request, pk=None):
         'Accept-Charset': 'utf-8',
     }
 
-    response = requests.get('https://ofv-api-v0-1-1.evotor.ru/v1/client/kkts', headers=headers)
+    response = requests.get(
+        'https://ofv-api-v0-1-1.evotor.ru/v1/client/kkts', headers=headers)
     data = response.json()
     encode_data = json.dumps(data)
     decode_data = json.loads(encode_data)
@@ -94,12 +99,14 @@ class LW(ListView):
     template_name = 'ofdload/company.html'
     context_object_name = 'comp_list'
 
+
 def receipts_load(request):
     company = Company.objects.values('name', 'token_key', 'id')
     #kkts = Kkt.objects.values('reg_number')
-    
+
     for comp in company:
-        kkts = Kkt.objects.filter(company_id_id = comp['id']).values('reg_number')
+        kkts = Kkt.objects.filter(
+            company_id_id=comp['id']).values('reg_number')
         token_key = comp['token_key']
         df = datetime.datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
         dt = datetime.datetime.now().replace(microsecond=0)
@@ -111,7 +118,7 @@ def receipts_load(request):
         print(dt)
         for kkt in kkts:
             kktRegId = kkt['reg_number']
-            #print(kktRegId)
+            # print(kktRegId)
             headers = {
                 'Token': token_key,
                 'Host': 'ofv-api-v0-1-1.evotor.ru',
@@ -119,9 +126,10 @@ def receipts_load(request):
                 'Accept-Charset': 'utf-8',
                 'dateFrom': str(df),
                 'dateTo': str(dt),
-                
+
             }
-            rget = 'https://ofv-api-v0-1-1.evotor.ru/v1/client/receipts?kktRegId='+kktRegId+'&dateFrom='+df+'&dateTo='+dt
+            rget = 'https://ofv-api-v0-1-1.evotor.ru/v1/client/receipts?kktRegId=' + \
+                kktRegId+'&dateFrom='+df+'&dateTo='+dt
             print(rget)
             response = requests.get(rget, headers=headers)
             data = response.json()
@@ -129,7 +137,6 @@ def receipts_load(request):
             decode_data = json.loads(encode_data)
             if decode_data['receipts']:
                 print(decode_data['receipts'][0]['totalSum'])
-
 
         context = {'company_list': comp, 'kkt_list': df}
 
