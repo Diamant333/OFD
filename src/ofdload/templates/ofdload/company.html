@@ -4,41 +4,43 @@
 
 
 <div class="container">
-<h4>Загрузка данных по компаниям</h4>
-<div class="row">
+  <h4>Загрузка данных по компаниям</h4>
+  <div class="row">
     <table class="table table-striped">
-        <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Название компании</th>
-      <th scope="col">Инн</th>
-      <th scope="col">Кпп</th>
-      <th scope="col">Токен</th>
-      <th scope="col">Управление</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for company in comp_list %}
-    <tr>
-      <td>{{company.id}}</td>
-      <td>{{company.name}}</td>
-      <td>{{company.inn}}</td>
-      <td>{{company.kpp}}</td>
-      <td>{{company.token_key}}</td>
-      <td>
-        <a href="{% url 'ofdload:get_data_kkts' pk=company.id %}" role="button" class="btn btn-outline-success bi bi-arrow-down-circle" title="Загрузить данные"></a>
-        <a href="{% url 'ofdload:get_data_kkts' pk=company.id %}" role="button" class="btn btn-outline-info bi bi-info" title="Посмотреть информацию"></a>
-        <a href="{% url 'ofdload:get_data_kkts' pk=company.id %}" role="button" class="btn btn-outline-warning bi bi-pencil-fill" title="Редактировать"></a>
-    
-    </td>
-     
-    </tr>
-    {% endfor %}
-  </tbody>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Название компании</th>
+          <th scope="col">Инн</th>
+          <th scope="col">Кпп</th>
+          <th scope="col">Токен</th>
+          <th scope="col">Управление</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for company in comp_list %}
+        <tr>
+          <td>{{company.id}}</td>
+          <td>{{company.name}}</td>
+          <td>{{company.inn}}</td>
+          <td>{{company.kpp}}</td>
+          <td>{{company.token_key}}</td>
+          <td>
+            <a href="{% url 'ofdload:get_data_kkts' pk=company.id %}" role="button"
+              class="btn btn-outline-success bi bi-arrow-down-circle" title="Загрузить данные"></a>
+            <a href="{% url 'ofdload:get_data_kkts' pk=company.id %}" role="button"
+              class="btn btn-outline-info bi bi-info" title="Посмотреть информацию"></a>
+            <a href="{% url 'ofdload:get_data_kkts' pk=company.id %}" role="button"
+              class="btn btn-outline-warning bi bi-pencil-fill" title="Редактировать"></a>
+
+          </td>
+
+        </tr>
+        {% endfor %}
+      </tbody>
 
     </table>
 
-</div>
+  </div>
 </div>
 {% endblock %}
-

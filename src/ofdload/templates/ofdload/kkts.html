@@ -10,15 +10,14 @@
     <p>{{company.token_key}}</p>
 
     {% endfor %}
-<div class="row">
+    <div class="row">
         {% for object in object_list %}
-            {% if object.kktCheckState == 'Success' %}
-            <p style="color: green">{{object.retailAddress}} Ок</p>
-            {% else %}
-            <p style="color: red">{{object.retailAddress}} Ок</p>
-            {% endif %}
+        {% if object.kktCheckState == 'Success' %}
+        <p style="color: green">{{object.retailAddress}} Ок</p>
+        {% else %}
+        <p style="color: red">{{object.retailAddress}} Ок</p>
+        {% endif %}
         {% endfor %}
-</div>
+    </div>
 </div>
 {% endblock %}
-
